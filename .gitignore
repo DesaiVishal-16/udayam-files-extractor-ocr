@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+
+# Testing
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.production
+!.env.example
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.swp
+*.sav
+
+# Cache
+.cache/
+.vite/
