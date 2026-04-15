@@ -41,7 +41,7 @@ export default function App() {
         <div className="p-4 border-b border-slate-200">
           {sidebarCollapsed ? (
             <div className="flex justify-center">
-              <img src="/favicon.png" alt="Logo" className="w-10 h-10 rounded-lg" />
+              <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
             </div>
           ) : (
             <Logo />

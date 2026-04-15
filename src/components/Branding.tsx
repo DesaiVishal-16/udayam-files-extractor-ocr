@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Logo = ({ className = "" }: { className?: string }) => (
   <div className={`flex items-center gap-2 ${className}`}>
-    <img src="/favicon.png" alt="Udayam AI Labs" className="w-10 h-10 rounded-lg" />
+    <img src="/logo.png" alt="Udayam AI Labs" className="h-10 w-auto" />
     <div>
       <h1 className="text-xl font-bold tracking-tight text-slate-900 leading-none">
         Udayam <span className="text-slate-900">AI Labs</span>
