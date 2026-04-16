@@ -100,68 +100,69 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
   const totalProcessed = history.length;
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-4 lg:space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-3 lg:p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Processed</p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">{totalProcessed}</p>
+              <p className="text-[10px] lg:text-xs font-medium text-slate-500 uppercase tracking-wider">Total</p>
+              <p className="text-xl lg:text-2xl font-bold text-slate-900 mt-1">{totalProcessed}</p>
             </div>
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <FileCheck className="w-5 h-5 text-blue-600" />
+            <div className="p-2 lg:p-3 bg-blue-100 rounded-lg">
+              <FileCheck className="w-4 h-4 lg:w-5 lg:h-5 text-blue-600" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-3 lg:p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Approved</p>
-              <p className="text-2xl font-bold text-emerald-600 mt-1">{approvedCount}</p>
+              <p className="text-[10px] lg:text-xs font-medium text-slate-500 uppercase tracking-wider">Approved</p>
+              <p className="text-xl lg:text-2xl font-bold text-emerald-600 mt-1">{approvedCount}</p>
             </div>
-            <div className="p-3 bg-emerald-100 rounded-lg">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+            <div className="p-2 lg:p-3 bg-emerald-100 rounded-lg">
+              <CheckCircle2 className="w-4 h-4 lg:w-5 lg:h-5 text-emerald-600" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-3 lg:p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Rejected</p>
-              <p className="text-2xl font-bold text-rose-600 mt-1">{rejectedCount}</p>
+              <p className="text-[10px] lg:text-xs font-medium text-slate-500 uppercase tracking-wider">Rejected</p>
+              <p className="text-xl lg:text-2xl font-bold text-rose-600 mt-1">{rejectedCount}</p>
             </div>
-            <div className="p-3 bg-rose-100 rounded-lg">
-              <XCircle className="w-5 h-5 text-rose-600" />
+            <div className="p-2 lg:p-3 bg-rose-100 rounded-lg">
+              <XCircle className="w-4 h-4 lg:w-5 lg:h-5 text-rose-600" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-3 lg:p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">This Month</p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">{new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}</p>
+              <p className="text-[10px] lg:text-xs font-medium text-slate-500 uppercase tracking-wider">This Month</p>
+              <p className="text-sm lg:text-2xl font-bold text-slate-900 mt-1">{new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}</p>
             </div>
-            <div className="p-3 bg-amber-100 rounded-lg">
-              <TrendingUp className="w-5 h-5 text-amber-600" />
+            <div className="p-2 lg:p-3 bg-amber-100 rounded-lg">
+              <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5 text-amber-600" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
         {/* Left Side - Upload Section */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="bg-blue-600 p-5">
-              <h3 className="text-white font-bold flex items-center gap-2">
-                <Upload className="w-5 h-5" />
-                Upload Document
+            <div className="bg-blue-600 p-3 lg:p-5">
+              <h3 className="text-white font-bold flex items-center gap-2 text-sm lg:text-base">
+                <Upload className="w-4 h-4 lg:w-5 lg:h-5" />
+                <span className="hidden sm:inline">Upload Document</span>
+                <span className="sm:hidden">Upload</span>
               </h3>
-              <p className="text-white/80 text-xs mt-1">Upload Marathi land record documents</p>
+              <p className="text-white/80 text-[10px] lg:text-xs mt-1 hidden sm:block">Upload Marathi land record documents</p>
             </div>
-            <div className="p-8">
+            <div className="p-4 lg:p-8">
               <input 
                 type="file" 
                 ref={fileInputRef} 
@@ -172,37 +173,37 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
               
               <div 
                 className={cn(
-                  "border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all",
+                  "border-2 border-dashed rounded-xl p-6 lg:p-10 text-center cursor-pointer transition-all",
                   isProcessing ? "border-blue-600 bg-blue-600/5" : "border-slate-200 hover:border-blue-600 hover:bg-slate-50"
                 )}
                 onClick={() => fileInputRef.current?.click()}
               >
                 {isProcessing ? (
-                  <div className="space-y-4">
-                    <div className="relative w-20 h-20 mx-auto">
-                      <Loader2 className="w-20 h-20 text-blue-600 animate-spin" />
+                  <div className="space-y-3 lg:space-y-4">
+                    <div className="relative w-16 h-16 lg:w-20 lg:h-20 mx-auto">
+                      <Loader2 className="w-16 h-16 lg:w-20 lg:h-20 text-blue-600 animate-spin" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Cpu className="w-8 h-8 text-blue-600" />
+                        <Cpu className="w-6 h-6 lg:w-8 lg:h-8 text-blue-600" />
                       </div>
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900">Analyzing Document...</p>
+                      <p className="font-bold text-slate-900 text-sm">Analyzing Document...</p>
                       <p className="text-xs text-slate-500 mt-1">Extracting land record data</p>
                     </div>
                   </div>
                 ) : (
                   <>
-                    <div className="w-14 h-14 bg-slate-100 rounded-full mx-auto flex items-center justify-center mb-4">
-                      <Upload className="w-6 h-6 text-slate-400" />
+                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-slate-100 rounded-full mx-auto flex items-center justify-center mb-3 lg:mb-4">
+                      <Upload className="w-5 h-5 lg:w-6 lg:h-6 text-slate-400" />
                     </div>
-                    <p className="font-semibold text-slate-900">Click to upload</p>
-                    <p className="text-xs text-slate-500 mt-2">JPG, PNG, PDF supported</p>
+                    <p className="font-semibold text-slate-900 text-sm">Click to upload</p>
+                    <p className="text-[10px] lg:text-xs text-slate-500 mt-1 lg:mt-2">JPG, PNG, PDF supported</p>
                   </>
                 )}
               </div>
 
               {error && (
-                <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-center gap-2 text-red-700 text-sm">
+                <div className="mt-3 lg:mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-center gap-2 text-red-700 text-sm">
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
                   <span>{error}</span>
                 </div>
@@ -215,77 +216,77 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
         <div className="lg:col-span-2">
           {currentRecord ? (
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden h-full">
-              <div className="bg-slate-900 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <FileText className="w-5 h-5 text-blue-600" />
+              <div className="bg-slate-900 px-3 lg:px-6 py-3 lg:py-4 flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2 lg:gap-3">
+                  <FileText className="w-4 h-4 lg:w-5 lg:h-5 text-blue-600" />
                   <div>
-                    <h3 className="text-white font-semibold">Analysis Result</h3>
-                    <p className="text-white/60 text-xs">{currentRecord.fileName}</p>
+                    <h3 className="text-white font-semibold text-sm lg:text-base">Analysis Result</h3>
+                    <p className="text-white/60 text-[10px] lg:text-xs">{currentRecord.fileName}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 lg:gap-3">
                   <button 
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
+                      "px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-medium transition-colors",
                       showOriginal ? "bg-white text-slate-900" : "bg-white/10 text-white hover:bg-white/20"
                     )}
                     onClick={() => setShowOriginal(!showOriginal)}
                   >
-                    <Eye className="w-4 h-4 inline mr-1" />
+                    <Eye className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1" />
                     {showOriginal ? "Hide" : "View"}
                   </button>
                   <span className={cn(
-                    "px-3 py-1.5 rounded-lg text-sm font-bold flex items-center gap-1",
+                    "px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-bold flex items-center gap-1",
                     currentRecord.status === 'मंजूर' ? "bg-emerald-500 text-white" : 
                     currentRecord.status === 'नामंजूर' ? "bg-rose-500 text-white" : "bg-amber-500 text-white"
                   )}>
                     {currentRecord.status === 'मंजूर' ? <CheckCircle className="w-3 h-3" /> : <XCircle className="w-3 h-3" />}
-                    {currentRecord.status}
+                    <span className="hidden sm:inline">{currentRecord.status}</span>
                   </span>
                 </div>
               </div>
 
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h4 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    Extracted Information
+              <div className="p-4 lg:p-6">
+                <div className="flex items-center justify-between mb-4 lg:mb-6 flex-wrap gap-2">
+                  <h4 className="text-base lg:text-lg font-bold text-slate-900 flex items-center gap-2">
+                    Extracted Info
                     {isEditing && <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Editing</span>}
                   </h4>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 lg:gap-2">
                     {!isEditing ? (
                       <button 
-                        className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-1 px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors"
                         onClick={() => setIsEditing(true)}
                       >
-                        <Edit3 className="w-4 h-4" />
-                        Edit
+                        <Edit3 className="w-3 h-3 lg:w-4 lg:h-4" />
+                        <span className="hidden sm:inline">Edit</span>
                       </button>
                     ) : (
                       <>
                         <button 
-                          className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-emerald-600 hover:text-emerald-700"
+                          className="flex items-center gap-1 px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium text-emerald-600 hover:text-emerald-700"
                           onClick={handleSaveEdit}
                         >
-                          <Save className="w-4 h-4" />
-                          Save
+                          <Save className="w-3 h-3 lg:w-4 lg:h-4" />
+                          <span className="hidden sm:inline">Save</span>
                         </button>
                         <button 
-                          className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-rose-600 hover:text-rose-700"
+                          className="flex items-center gap-1 px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium text-rose-600 hover:text-rose-700"
                           onClick={() => { setIsEditing(false); setEditedRecord(currentRecord); }}
                         >
-                          <X className="w-4 h-4" />
-                          Cancel
+                          <X className="w-3 h-3 lg:w-4 lg:h-4" />
+                          <span className="hidden sm:inline">Cancel</span>
                         </button>
                       </>
                     )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                  <div className="space-y-3 lg:space-y-4">
+                    <div className="grid grid-cols-2 gap-2 lg:gap-4">
                       <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                        <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">
                           <MapPin className="w-3 h-3 inline mr-1" /> Village
                         </label>
                         {isEditing ? (
@@ -293,14 +294,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                             type="text" 
                             value={editedRecord?.villageName || ""}
                             onChange={(e) => setEditedRecord(prev => prev ? { ...prev, villageName: e.target.value } : null)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:border-blue-600"
+                            className="w-full px-2 lg:px-3 py-1.5 lg:py-2 border border-slate-200 rounded-lg text-xs lg:text-sm font-medium focus:outline-none focus:border-blue-600"
                           />
                         ) : (
-                          <p className="text-base font-semibold text-slate-800">{currentRecord.villageName}</p>
+                          <p className="text-sm lg:text-base font-semibold text-slate-800">{currentRecord.villageName}</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                        <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">
                           <Building2 className="w-3 h-3 inline mr-1" /> Taluka
                         </label>
                         {isEditing ? (
@@ -308,14 +309,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                             type="text" 
                             value={editedRecord?.talukaName || ""}
                             onChange={(e) => setEditedRecord(prev => prev ? { ...prev, talukaName: e.target.value } : null)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:border-blue-600"
+                            className="w-full px-2 lg:px-3 py-1.5 lg:py-2 border border-slate-200 rounded-lg text-xs lg:text-sm font-medium focus:outline-none focus:border-blue-600"
                           />
                         ) : (
-                          <p className="text-base font-semibold text-slate-800">{currentRecord.talukaName}</p>
+                          <p className="text-sm lg:text-base font-semibold text-slate-800">{currentRecord.talukaName}</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                        <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">
                           <Landmark className="w-3 h-3 inline mr-1" /> District
                         </label>
                         {isEditing ? (
@@ -323,14 +324,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                             type="text" 
                             value={editedRecord?.districtName || ""}
                             onChange={(e) => setEditedRecord(prev => prev ? { ...prev, districtName: e.target.value } : null)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:border-blue-600"
+                            className="w-full px-2 lg:px-3 py-1.5 lg:py-2 border border-slate-200 rounded-lg text-xs lg:text-sm font-medium focus:outline-none focus:border-blue-600"
                           />
                         ) : (
-                          <p className="text-base font-semibold text-slate-800">{currentRecord.districtName}</p>
+                          <p className="text-sm lg:text-base font-semibold text-slate-800">{currentRecord.districtName}</p>
                         )}
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                        <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">
                           <Hash className="w-3 h-3 inline mr-1" /> Gut No.
                         </label>
                         {isEditing ? (
@@ -338,17 +339,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                             type="text" 
                             value={editedRecord?.gutNumber || ""}
                             onChange={(e) => setEditedRecord(prev => prev ? { ...prev, gutNumber: e.target.value } : null)}
-                            className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:border-blue-600"
+                            className="w-full px-2 lg:px-3 py-1.5 lg:py-2 border border-slate-200 rounded-lg text-xs lg:text-sm font-medium focus:outline-none focus:border-blue-600"
                           />
                         ) : (
-                          <p className="text-base font-semibold text-slate-800">{currentRecord.gutNumber}</p>
+                          <p className="text-sm lg:text-base font-semibold text-slate-800">{currentRecord.gutNumber}</p>
                         )}
                       </div>
                     </div>
                     
-                    <div className="pt-4 border-t border-slate-100">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Confidence Score</label>
-                      <div className="flex items-center gap-3">
+                    <div className="pt-3 lg:pt-4 border-t border-slate-100">
+                      <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">Confidence</label>
+                      <div className="flex items-center gap-2 lg:gap-3">
                         <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
                           <div 
                             className={cn(
@@ -359,60 +360,60 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                             style={{ width: `${currentRecord.confidence}%` }}
                           />
                         </div>
-                        <span className="text-sm font-bold text-slate-700">{currentRecord.confidence}%</span>
+                        <span className="text-xs lg:text-sm font-bold text-slate-700">{currentRecord.confidence}%</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="bg-slate-50 rounded-lg p-4">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">AI Reasoning</label>
-                      <p className="text-sm text-slate-600 italic">"{currentRecord.reasoning}"</p>
+                  <div className="space-y-3 lg:space-y-4">
+                    <div className="bg-slate-50 rounded-lg p-3 lg:p-4">
+                      <label className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1 lg:mb-2">AI Reasoning</label>
+                      <p className="text-xs lg:text-sm text-slate-600 italic">"{currentRecord.reasoning}"</p>
                     </div>
                     
                     <button
                       onClick={() => exportToExcel(currentRecord)}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                      className="w-full flex items-center justify-center gap-2 px-3 lg:px-4 py-2.5 lg:py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-xs lg:text-sm"
                     >
-                      <Download className="w-5 h-5" />
+                      <Download className="w-4 h-4 lg:w-5 lg:h-5" />
                       Download Excel Report
                     </button>
                     {currentRecord.gutNumber.split(/[,\s;]+/).filter(n => n.trim() !== "").length > 1 && (
-                      <p className="text-xs text-slate-400 text-center">Multiple Gut Numbers will be exported as separate rows</p>
+                      <p className="text-[10px] lg:text-xs text-slate-400 text-center">Multiple Gut Numbers will be exported as separate rows</p>
                     )}
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 h-full flex flex-col items-center justify-center">
-              <div className="w-20 h-20 bg-slate-100 rounded-full mx-auto flex items-center justify-center mb-4">
-                <FileText className="w-10 h-10 text-slate-300" />
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 lg:p-8 h-full flex flex-col items-center justify-center">
+              <div className="w-16 h-16 lg:w-20 lg:h-20 bg-slate-100 rounded-full mx-auto flex items-center justify-center mb-3 lg:mb-4">
+                <FileText className="w-8 h-8 lg:w-10 lg:h-10 text-slate-300" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">No Document Processed</h3>
-              <p className="text-sm text-slate-500 mt-2">Upload a document to see analysis results here</p>
+              <h3 className="text-base lg:text-lg font-bold text-slate-900">No Document Processed</h3>
+              <p className="text-xs lg:text-sm text-slate-500 mt-1 lg:mt-2">Upload a document to see analysis results here</p>
             </div>
           )}
 
           {/* Original Document Preview */}
           {showOriginal && currentRecord?.fileUrl && (
-            <div className="mt-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="bg-slate-100 px-6 py-3 flex items-center justify-between border-b">
-                <h4 className="font-semibold text-slate-700">Original Document</h4>
+            <div className="mt-4 lg:mt-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="bg-slate-100 px-3 lg:px-6 py-2 lg:py-3 flex items-center justify-between border-b">
+                <h4 className="font-semibold text-slate-700 text-sm lg:text-base">Original Document</h4>
                 <button onClick={() => setShowOriginal(false)} className="p-1 hover:bg-slate-200 rounded">
                   <X className="w-4 h-4 text-slate-500" />
                 </button>
               </div>
-              <div className="p-4 bg-slate-50 max-h-[400px] overflow-auto flex justify-center">
+              <div className="p-3 lg:p-4 bg-slate-50 max-h-[300px] lg:max-h-[400px] overflow-auto flex justify-center">
                 {currentRecord.fileName.toLowerCase().endsWith('.pdf') ? (
-                  <div className="text-center py-8">
-                    <File className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                    <p className="text-sm text-slate-500 mb-3">PDF Preview might be blocked</p>
+                  <div className="text-center py-6 lg:py-8">
+                    <File className="w-10 h-10 lg:w-12 lg:h-12 text-slate-300 mx-auto mb-2 lg:mb-3" />
+                    <p className="text-xs lg:text-sm text-slate-500 mb-2 lg:mb-3">PDF Preview might be blocked</p>
                     <a 
                       href={currentRecord.fileUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:underline"
+                      className="text-xs lg:text-sm text-blue-600 hover:underline"
                     >
                       Open PDF in New Tab →
                     </a>
