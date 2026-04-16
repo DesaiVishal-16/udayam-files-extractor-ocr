@@ -63,31 +63,32 @@ export const History: React.FC<HistoryProps> = ({ records }) => {
   };
 
   return (
-    <div className="space-y-6 w-full">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-udayam-purple rounded-lg">
-            <Clock className="w-5 h-5 text-white" />
+    <div className="space-y-4 lg:space-y-6 w-full">
+      <div className="flex justify-between items-center flex-wrap gap-3">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <div className="p-1.5 lg:p-2 bg-udayam-purple rounded-lg">
+            <Clock className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Processing History</h2>
+          <h2 className="text-lg lg:text-2xl font-bold text-slate-900">Processing History</h2>
         </div>
         
         {records.length > 0 && (
           <button
             onClick={exportAllToExcel}
-            className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
+            className="flex items-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-white border border-slate-200 rounded-lg text-xs lg:text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-sm"
           >
-            <Download className="w-4 h-4" />
-            Export All to Excel
+            <Download className="w-3 h-3 lg:w-4 lg:h-4" />
+            <span className="hidden sm:inline">Export All to Excel</span>
+            <span className="sm:hidden">Export</span>
           </button>
         )}
       </div>
 
       {records.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-200">
-          <FileText className="w-12 h-12 text-slate-200 mx-auto mb-4" />
-          <p className="text-slate-500 font-medium">No records processed yet.</p>
-          <p className="text-sm text-slate-400">Start by uploading a document in the Dashboard.</p>
+        <div className="text-center py-12 lg:py-20 bg-white rounded-2xl border border-dashed border-slate-200">
+          <FileText className="w-10 h-10 lg:w-12 lg:h-12 text-slate-200 mx-auto mb-3 lg:mb-4" />
+          <p className="text-slate-500 font-medium text-sm lg:text-base">No records processed yet.</p>
+          <p className="text-xs lg:text-sm text-slate-400 mt-1">Start by uploading a document in the Dashboard.</p>
         </div>
       ) : (
         <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
@@ -95,28 +96,28 @@ export const History: React.FC<HistoryProps> = ({ records }) => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Document</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gut No/s.</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Location</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Confidence</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Document</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gut No/s.</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider hidden md:table-cell">Location</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Status</th>
+                  <th className="px-3 lg:px-6 py-3 lg:py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Conf.</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {records.map((record) => (
                   <tr key={record.id} className="hover:bg-slate-50 transition-colors group">
-                    <td className="px-6 py-4">
-                      <p className="text-xs font-medium text-slate-500">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4">
+                      <p className="text-[10px] lg:text-xs font-medium text-slate-500">
                         {new Date(record.timestamp).toLocaleDateString()}
                       </p>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[9px] lg:text-[10px] text-slate-400 hidden sm:block">
                         {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-semibold text-slate-800 truncate max-w-[150px]">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4">
+                      <div className="flex items-center gap-1 lg:gap-2">
+                        <p className="text-xs lg:text-sm font-semibold text-slate-800 truncate max-w-[100px] lg:max-w-[150px]">
                           {record.fileName}
                         </p>
                         {record.fileUrl && (
@@ -124,28 +125,28 @@ export const History: React.FC<HistoryProps> = ({ records }) => {
                             href={record.fileUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="p-1 text-slate-400 hover:text-udayam-purple transition-colors"
+                            className="p-0.5 lg:p-1 text-slate-400 hover:text-udayam-purple transition-colors"
                             title="View Original Document"
                           >
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
                           </a>
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-sm font-mono font-medium text-slate-600">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4">
+                      <span className="text-xs lg:text-sm font-mono font-medium text-slate-600">
                         {record.gutNumber}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <p className="text-sm text-slate-600">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4 hidden md:table-cell">
+                      <p className="text-xs lg:text-sm text-slate-600">
                         {record.villageName}, {record.talukaName}
                       </p>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4">
                       <div className="flex justify-center">
                         <span className={cn(
-                          "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider",
+                          "px-2 lg:py-0.5 rounded-full text-[9px] lg:text-[10px] font-bold uppercase tracking-wider",
                           record.status === 'मंजूर' ? "bg-emerald-100 text-emerald-700" : 
                           record.status === 'नामंजूर' ? "bg-rose-100 text-rose-700" :
                           "bg-amber-100 text-amber-700"
@@ -154,9 +155,9 @@ export const History: React.FC<HistoryProps> = ({ records }) => {
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-3 lg:px-6 py-3 lg:py-4 text-right">
                       <span className={cn(
-                        "text-sm font-bold",
+                        "text-xs lg:text-sm font-bold",
                         record.confidence > 80 ? "text-emerald-600" : 
                         record.confidence > 50 ? "text-amber-600" : "text-rose-600"
                       )}>
