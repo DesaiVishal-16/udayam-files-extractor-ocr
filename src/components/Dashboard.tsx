@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileText, CheckCircle, XCircle, Loader2, Download, AlertCircle, Cpu, Eye, Edit3, Save, X, File, MapPin, Building2, Landmark, Hash, FileCheck, TrendingUp, Clock, CheckCircle2 } from 'lucide-react';
+import { Upload, FileText, CheckCircle, XCircle, Loader2, Download, AlertCircle, Cpu, Eye, Edit3, Save, X, MapPin, Building2, Landmark, Hash, FileCheck, TrendingUp, Clock, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { processLandRecord, LandRecord } from '../services/geminiService';
 import * as XLSX from 'xlsx';
@@ -225,16 +225,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                   </div>
                 </div>
                 <div className="flex items-center gap-2 lg:gap-3">
-                  <button 
-                    className={cn(
-                      "px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-medium transition-colors",
-                      showOriginal ? "bg-white text-slate-900" : "bg-white/10 text-white hover:bg-white/20"
-                    )}
-                    onClick={() => setShowOriginal(!showOriginal)}
-                  >
-                    <Eye className="w-3 h-3 lg:w-4 lg:h-4 inline mr-1" />
-                    {showOriginal ? "Hide" : "View"}
-                  </button>
+                  {currentRecord.fileUrl && (
+                    <a 
+                      href={currentRecord.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        "px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-medium transition-colors bg-white/10 text-white hover:bg-white/20 flex items-center gap-1"
+                      )}
+                    >
+                      <Eye className="w-3 h-3 lg:w-4 lg:h-4" />
+                      <span className="hidden sm:inline">View</span>
+                    </a>
+                  )}
                   <span className={cn(
                     "px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm font-bold flex items-center gap-1",
                     currentRecord.status === 'मंजूर' ? "bg-emerald-500 text-white" : 
@@ -395,40 +398,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
             </div>
           )}
 
-          {/* Original Document Preview */}
-          {showOriginal && currentRecord?.fileUrl && (
-            <div className="mt-4 lg:mt-6 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="bg-slate-100 px-3 lg:px-6 py-2 lg:py-3 flex items-center justify-between border-b">
-                <h4 className="font-semibold text-slate-700 text-sm lg:text-base">Original Document</h4>
-                <button onClick={() => setShowOriginal(false)} className="p-1 hover:bg-slate-200 rounded">
-                  <X className="w-4 h-4 text-slate-500" />
-                </button>
-              </div>
-              <div className="p-3 lg:p-4 bg-slate-50 max-h-[300px] lg:max-h-[400px] overflow-auto flex justify-center">
-                {currentRecord.fileName.toLowerCase().endsWith('.pdf') ? (
-                  <div className="text-center py-6 lg:py-8">
-                    <File className="w-10 h-10 lg:w-12 lg:h-12 text-slate-300 mx-auto mb-2 lg:mb-3" />
-                    <p className="text-xs lg:text-sm text-slate-500 mb-2 lg:mb-3">PDF Preview might be blocked</p>
-                    <a 
-                      href={currentRecord.fileUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-xs lg:text-sm text-blue-600 hover:underline"
-                    >
-                      Open PDF in New Tab →
-                    </a>
-                  </div>
-                ) : (
-                  <img 
-                    src={currentRecord.fileUrl} 
-                    alt="Original Document" 
-                    className="max-w-full h-auto rounded shadow"
-                    referrerPolicy="no-referrer"
-                  />
-                )}
-              </div>
-            </div>
-          )}
+          
         </div>
       </div>
     </div>
