@@ -168,7 +168,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                 ref={fileInputRef} 
                 onChange={handleFileUpload} 
                 className="hidden" 
-                accept="image/*,application/pdf"
+                accept="image/*,application/pdf,.xlsx,.xls"
               />
               
               <div 
@@ -197,7 +197,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onRecordProcessed, history
                       <Upload className="w-5 h-5 lg:w-6 lg:h-6 text-slate-400" />
                     </div>
                     <p className="font-semibold text-slate-900 text-sm">Click to upload</p>
-                    <p className="text-[10px] lg:text-xs text-slate-500 mt-1 lg:mt-2">JPG, PNG, PDF supported</p>
+                    <p className="text-[10px] lg:text-xs text-slate-500 mt-1 lg:mt-2">JPG, PNG, PDF, Excel supported</p>
                   </>
                 )}
               </div>
