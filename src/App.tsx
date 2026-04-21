@@ -119,7 +119,7 @@ export default function App() {
               >
                 <Menu className="w-6 h-6" />
               </button>
-              <h2 className="text-xl lg:text-2xl font-bold text-slate-900">
+              <h2 className="text-xl lg:text-2xl font-bold text-blue-600">
                 Ferfar Smart Scan
               </h2>
             </div>
