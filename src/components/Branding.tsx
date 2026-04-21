@@ -17,7 +17,7 @@ export const Logo = ({ className = "" }: { className?: string }) => (
 export const CreditLine = () => (
   <div className="text-sm">
     <a 
-      href="https://www.udayam.co.in" 
+      href="https://udayam.co.in" 
       target="_blank" 
       rel="noopener noreferrer"
       className="text-slate-700 hover:text-blue-600 hover:underline font-semibold transition-colors"
