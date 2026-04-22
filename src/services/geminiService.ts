@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI, Type, ThinkingLevel } from "@google/genai";
 import * as XLSX from "xlsx";
 
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || "" });
@@ -16,6 +16,79 @@ export interface LandRecord {
   timestamp: number;
   fileUrl?: string;
 }
+
+const extractWithModel = async (base64Data: string, mimeType: string, prompt: string, modelName: string) => {
+  const config: any = {
+    responseMimeType: "application/json",
+    responseSchema: {
+      type: Type.OBJECT,
+      properties: {
+        villageName: { type: Type.STRING },
+        talukaName: { type: Type.STRING },
+        districtName: { type: Type.STRING },
+        gutNumber: { type: Type.STRING },
+        status: { 
+          type: Type.STRING,
+          enum: ["मंजूर", "नामंजूर", "अस्पष्ट"]
+        },
+        confidence: { type: Type.NUMBER },
+        reasoning: { type: Type.STRING },
+      },
+      required: ["villageName", "talukaName", "districtName", "gutNumber", "status", "confidence", "reasoning"],
+    },
+  };
+
+  if (modelName.includes("flash") || modelName.includes("gemini-3")) {
+    config.thinkingConfig = { thinkingLevel: ThinkingLevel.LOW };
+  }
+
+  return await ai.models.generateContent({
+    model: modelName,
+    contents: [
+      {
+        parts: [
+          { text: prompt },
+          {
+            inlineData: {
+              mimeType: mimeType,
+              data: base64Data,
+            },
+          },
+        ],
+      },
+    ],
+    config,
+  });
+};
+
+const extractExcelWithModel = async (prompt: string, modelName: string) => {
+  const config: any = {
+    responseMimeType: "application/json",
+    responseSchema: {
+      type: Type.OBJECT,
+      properties: {
+        villageName: { type: Type.STRING },
+        talukaName: { type: Type.STRING },
+        districtName: { type: Type.STRING },
+        gutNumber: { type: Type.STRING },
+        status: { type: Type.STRING, enum: ["मंजूर", "नामंजूर", "अस्पष्ट"] },
+        confidence: { type: Type.NUMBER },
+        reasoning: { type: Type.STRING },
+      },
+      required: ["villageName", "talukaName", "districtName", "gutNumber", "status", "confidence", "reasoning"],
+    },
+  };
+
+  if (modelName.includes("flash") || modelName.includes("gemini-3")) {
+    config.thinkingConfig = { thinkingLevel: ThinkingLevel.LOW };
+  }
+
+  return await ai.models.generateContent({
+    model: modelName,
+    contents: [{ parts: [{ text: prompt }] }],
+    config,
+  });
+};
 
 export async function processLandRecord(file: File): Promise<LandRecord> {
   const fileName = file.name.toLowerCase();
@@ -61,46 +134,21 @@ export async function processLandRecord(file: File): Promise<LandRecord> {
     Return JSON only.
   `;
 
+  let response;
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: [
-        {
-          parts: [
-            { text: prompt },
-            {
-              inlineData: {
-                mimeType: mimeType,
-                data: base64Data,
-              },
-            },
-          ],
-        },
-      ],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            villageName: { type: Type.STRING },
-            talukaName: { type: Type.STRING },
-            districtName: { type: Type.STRING },
-            gutNumber: { type: Type.STRING },
-            status: { 
-              type: Type.STRING,
-              enum: ["मंजूर", "नामंजूर", "अस्पष्ट"]
-            },
-            confidence: { type: Type.NUMBER },
-            reasoning: { type: Type.STRING },
-          },
-          required: ["villageName", "talukaName", "districtName", "gutNumber", "status", "confidence", "reasoning"],
-        },
-      },
-    });
+    response = await extractWithModel(base64Data, mimeType, prompt, "gemini-3.1-pro-preview");
+  } catch (error: any) {
+    const isQuotaError = error.message?.includes("Quota exceeded") || error.status === 429 || error.message?.includes("429");
+    if (isQuotaError) {
+      response = await extractWithModel(base64Data, mimeType, prompt, "gemini-3-flash-preview");
+    } else {
+      throw error;
+    }
+  }
 
+  try {
     const result = JSON.parse(response.text || "{}");
     
-    // Fallback: Convert any Marathi digits to English digits if AI missed it
     const marathiToEnglish = (str: string) => {
       const map: { [key: string]: string } = {
         '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', 
@@ -247,35 +295,26 @@ async function processExcelWithAI(file: File, data: string[][]): Promise<LandRec
     Return JSON only with fields: villageName, talukaName, districtName, gutNumber, status, confidence (0-100), reasoning.
   `;
 
+  let response;
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: [{ parts: [{ text: prompt + "\n\nExcel Data:\n" + tableText }] }],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            villageName: { type: Type.STRING },
-            talukaName: { type: Type.STRING },
-            districtName: { type: Type.STRING },
-            gutNumber: { type: Type.STRING },
-            status: { type: Type.STRING, enum: ["मंजूर", "नामंजूर", "अस्पष्ट"] },
-            confidence: { type: Type.NUMBER },
-            reasoning: { type: Type.STRING },
-          },
-          required: ["villageName", "talukaName", "districtName", "gutNumber", "status", "confidence", "reasoning"],
-        },
-      },
-    });
+    response = await extractExcelWithModel(prompt + "\n\nExcel Data:\n" + tableText, "gemini-3.1-pro-preview");
+  } catch (error: any) {
+    const isQuotaError = error.message?.includes("Quota exceeded") || error.status === 429 || error.message?.includes("429");
+    if (isQuotaError) {
+      response = await extractExcelWithModel(prompt + "\n\nExcel Data:\n" + tableText, "gemini-3-flash-preview");
+    } else {
+      throw error;
+    }
+  }
 
+  try {
     const result = JSON.parse(response.text || "{}");
     const marathiToEnglish = (str: string) => {
       const map: { [key: string]: string } = {
-        '०': '0', '१': '1', '२': '2', '३': '3', '४': '4', 
-        '५': '5', '६': '6', '७': '7', '८': '8', '९': '9'
+        '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', 
+        '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9'
       };
-      return String(str).replace(/[०-९]/g, m => map[m]);
+      return String(str).replace(/[₀-₉]/g, m => map[m]);
     };
 
     return {
